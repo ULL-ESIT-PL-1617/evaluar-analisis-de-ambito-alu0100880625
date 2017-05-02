@@ -83,7 +83,7 @@ module.exports = () => {
 ### Recursos
 
 * [PEGs](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pegjs/PEGS.html)
-* [Repo del que parte esta asignación]()
+* [Repo del que parte esta asignación](https://github.com/ULL-ESIT-PL-1617/evaluar-pegjs-translate)
 * [Mocha](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pruebas/mocha.html)
 * [Chai](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pruebas/chai.html)
 * Rakefile:
@@ -94,4 +94,3 @@ rake compile  # Compile grammar.pegjs
 rake exe      # Run main.js
 rake run      # Run mainfromfile.js input1
 ```
-
