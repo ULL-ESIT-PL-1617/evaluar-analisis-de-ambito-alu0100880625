@@ -76,9 +76,9 @@ module.exports = () => {
   return sym;
 }
 ```
-4. Añada funciones y llamadas a función
-5. Modifique las pruebas para que comprueben el buen funcionamiento de su código
-6. Su fichero `README.md` debe contener su gramática final.
+5. Añada funciones y llamadas a función
+6. Modifique las pruebas para que comprueben el buen funcionamiento de su código
+7. Su fichero `README.md` debe contener su gramática final.
 
 ### Recursos
 
