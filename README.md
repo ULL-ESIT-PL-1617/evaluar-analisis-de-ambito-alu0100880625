@@ -61,7 +61,7 @@ ASSIGN = _ '=' _
 2. Escriba una función `genCode` que recorra el árbol de análisis sintáctico abstracto retornado 
 produciendo como salida una función javascript que computa las expresiones especificadas:
 3.  Ejemplo de entrada:
-```
+```javascript
 a = 4,
 b = 5+a,
 c = 2*a
@@ -86,5 +86,12 @@ module.exports = () => {
 * [Repo del que parte esta asignación]()
 * [Mocha](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pruebas/mocha.html)
 * [Chai](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pruebas/chai.html)
-
+* Rakefile:
+```bash
+[~/srcPLgrado/pegjs-calc-translate(master)]$ rake -T
+rake clean    # rm grammar.js
+rake compile  # Compile grammar.pegjs
+rake exe      # Run main.js
+rake run      # Run mainfromfile.js input1
+```
 

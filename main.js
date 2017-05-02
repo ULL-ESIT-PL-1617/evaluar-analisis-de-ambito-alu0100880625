@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var PEG = require("./grammar.js");
 var input = process.argv[2] || "a=5, b= 3*2";
 console.log(`Processing <${input}>`);
