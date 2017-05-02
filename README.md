@@ -76,20 +76,15 @@ module.exports = () => {
   return sym;
 }
 ```
-
-7. Modifique las pruebas para que comprueben el buen funcionamiento de su código
-8. Su fichero `README.md` debe contener su gramática final.
-2. Modifique las pruebas para que comprueben el buen funcionamiento de su código
-4. Modifique las pruebas para que funcionen
+4. Añada funciones y llamadas a función
+5. Modifique las pruebas para que comprueben el buen funcionamiento de su código
+6. Su fichero `README.md` debe contener su gramática final.
 
 ### Recursos
 
 * [PEGs](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pegjs/PEGS.html)
-* [Repo del que parte esta asignación](https://github.com/ULL-ESIT-PL-1617/pegjs-calc-assign)
+* [Repo del que parte esta asignación]()
 * [Mocha](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pruebas/mocha.html)
 * [Chai](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pruebas/chai.html)
-* [Covering](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pruebas/covering.html)
-* [Blanket](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/apuntes/pruebas/blanket.html)
-* [Repo con la solución](https://github.com/ULL-ESIT-PL-1617/solution-evalua-pdr)
 
 
