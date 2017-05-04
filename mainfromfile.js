@@ -9,7 +9,7 @@ var genCode = function(tree) {
 module.exports = () => {
   var sym = {};
   `;
-   var suffix = '\n}';
+   var suffix = ';\n  return sym;\n}';
    /* traverse the tree producing translation */
    return prefix+tree.translate()+suffix;
 };
@@ -24,5 +24,6 @@ fs.readFile(fileName, 'utf8', function (err,input) {
   console.log("********* Code Generation ************");
   var js  = genCode(r);
   console.log(js);
+  fs.writeFileSync('translation.js', js);
 });
 
