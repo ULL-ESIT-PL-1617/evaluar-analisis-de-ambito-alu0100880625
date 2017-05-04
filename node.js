@@ -18,10 +18,12 @@ class BinOp extends Node{
     }
     else if (opTrans == "FUNCTION") {
       console.log("*****************Function "+util.inspect(this.left));
-      let trans = "("+this.left.map(({type:_, value:x}) => x).join(",")+")";
-      trans += " => ";
-      trans += this.right.translate();
-      return trans;
+      let params = this.left.map(({type:_, value:x}) => x);
+      let trans = "function("+params.join(",")+") {\n";
+      trans += "    var sym = {" + params.map((x) => x+":"+x).join(',')+"};\n";
+
+      trans += '    return '+this.right.translate();
+      return trans+"\n  }";
     }
     return leftTranslate + opTrans + this.right.translate();
   }
