@@ -16,6 +16,13 @@ class BinOp extends Node{
       let argstrans = this.right.translate(',');
       return `${this.left.translate()}(${argstrans})`;
     }
+    else if (opTrans == "FUNCTION") {
+      console.log("*****************Function "+util.inspect(this.left));
+      let trans = "("+this.left.map(({type:_, value:x}) => x).join(",")+")";
+      trans += " => ";
+      trans += this.right.translate();
+      return trans;
+    }
     return leftTranslate + opTrans + this.right.translate();
   }
 };

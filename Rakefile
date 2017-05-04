@@ -32,11 +32,8 @@ task :runf => :compile do
   sh "node mainfromfile.js inputfunction"
 end
 
-
-desc "rm grammar.js"
-task :clean do
-  sh "rm grammar.js"
+desc "Run mainfromfile.js inputfunctiondef"
+task :runfd => :compile do
+  sh "node mainfromfile.js inputfunctiondef"
 end
-
-
 
