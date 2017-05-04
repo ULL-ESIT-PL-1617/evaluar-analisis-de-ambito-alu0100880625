@@ -1,5 +1,8 @@
 {
-  var tree = [];
+class Node {};
+class BinOp extends Node{};
+class Leaf extends Node{};
+
 }
 
 start
@@ -34,7 +37,7 @@ multiplicative
                                         } else {
                                           let arr = [];
                                           rest.forEach(function(item){
-                                            arr.push({type:item[0][1], left: left, right: item[1]});
+                                            arr.push({type:item[0], left: left, right: item[1]});
                                           });
                                           return arr;
                                         }
@@ -53,11 +56,11 @@ _ = $[ \t\n\r]*
 
 ADDOP = PLUS / MINUS
 MULOP = MULT / DIV
-COMMA = _","_
-PLUS = _"+"_
-MINUS = _"-"_
-MULT = _"*"_
-DIV = _"/"_
+COMMA = _","_  { return ','; }
+PLUS = _"+"_   { return '+'; }
+MINUS = _"-"_  { return '-'; }
+MULT = _"*"_   { return '*'; }
+DIV = _"/"_    { return '/'; }
 LEFTPAR = _"("_
 RIGHTPAR = _")"_
 NUMBER = _ n:$[0-9]+ _                { return {type:'NUM', value: n};}
