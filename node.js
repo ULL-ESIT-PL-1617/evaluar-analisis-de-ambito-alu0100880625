@@ -9,13 +9,12 @@ class Node {
 class BinOp extends Node{
   translate() {
     console.log("visiting: "+util.inspect(this, {depth:1}))
-    let leftTranslate = this.left.translate();
-    let opTrans = this.type;
+    var leftTranslate = this.left.translate();
+    var opTrans = this.type;
     if (opTrans == ",") opTrans += '\n  ';
-    else if (opTrans == "=") {
-      leftTranslate = `sym[${leftTranslate}]`;
-    } else if (opTrans == "CALL") {
-      return `${this.left.translate()}()`;
+    else if (opTrans == "CALL") {
+      let argstrans = this.right.translate(',');
+      return `${this.left.translate()}(${argstrans})`;
     }
     return leftTranslate + opTrans + this.right.translate();
   }
@@ -24,12 +23,13 @@ class BinOp extends Node{
 class Leaf extends Node{
   translate() {
     console.log("visiting: "+util.inspect(this, {depth:null}))
-    return this.value;
+    var trans = (this.type == 'ID')? `sym[${this.value}]`: this.value;
+    return trans;
   }
 };
 
-Array.prototype.translate = function() {
-  return this.reduce((s,n) => s += n.translate(), '');
+Array.prototype.translate = function(j) {
+  return this.map((t) => t.translate()).join(j || '');
 };
 
 module.exports = {Node: Node, BinOp: BinOp, Leaf: Leaf};
