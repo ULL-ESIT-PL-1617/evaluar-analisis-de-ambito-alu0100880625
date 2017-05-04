@@ -1,11 +1,6 @@
 ### Aceptar Tarea
 
-* [Aceptar asignación de la tarea]()
-
-### Forma de trabajo
-
-* Use su portátil o su cuenta en c9 para llevar a cabo los objetivos planteados.
-* Esta práctica se divide en objetivos o hitos:  indique al profesor  cuando ha terminado y suba los enlaces a los repos y despliegues.
+* [Solución a la Práctica: Evaluar PEG Translate](https://github.com/ULL-ESIT-PL-1617/evaluar-pegjs-translate)
 
 ### Descripción
 
