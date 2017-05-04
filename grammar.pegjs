@@ -1,26 +1,50 @@
-start
-  = comma { return text(); }
+{
+  var tree = [];
+}
 
-comma 
-  = assign COMMA comma 
+start
+  = c:comma { return c; }
+
+comma
+  = a:assign COMMA c:comma { return {type:'COMMA', left:a, right: c}; }
   / assign
 
 assign
-  = ID ASSIGN additive
+  = id:ID ASSIGN a:additive { return {type : '=', left: id, right:a}; }
   / additive
 
 additive
-  = multiplicative (ADDOP multiplicative)*
+  = left:multiplicative rest:(ADDOP multiplicative)* {
+                                                       if(rest.length == 0){
+                                                         return left;
+                                                       } else {
+                                                         let arr = [];
+                                                         rest.forEach(function(item){
+                                                           arr.push({type:item[0], left: left, right: item[1]});
+                                                         });
+                                                         return arr;
+                                                       }
+                                                    }
   / multiplicative
 
 multiplicative
-  = primary (MULOP primary)*
+  = left:primary rest:(MULOP primary)* {
+                                        if(rest.length == 0){
+                                          return left;
+                                        } else {
+                                          let arr = [];
+                                          rest.forEach(function(item){
+                                            arr.push({type:item[0][1], left: left, right: item[1]});
+                                          });
+                                          return arr;
+                                        }
+                                       }
   / primary
 
 primary
   = integer
   / ID
-  / LEFTPAR comma RIGHTPAR
+  / LEFTPAR c:comma RIGHTPAR {return c;}
 
 integer "integer"
   = NUMBER
@@ -36,6 +60,6 @@ MULT = _"*"_
 DIV = _"/"_
 LEFTPAR = _"("_
 RIGHTPAR = _")"_
-NUMBER = _ $[0-9]+ _
-ID = _ $([a-z_]i$([a-z0-9_]i*)) _
+NUMBER = _ n:$[0-9]+ _                { return {type:'NUM', value: n};}
+ID = _ id: $([a-z_]i$([a-z0-9_]i*)) _ { return {type:'ID',  value: id};}
 ASSIGN = _ '=' _
