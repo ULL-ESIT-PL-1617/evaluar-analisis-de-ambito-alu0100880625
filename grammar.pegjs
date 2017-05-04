@@ -30,6 +30,11 @@ multiplicative
 
 primary
   = integer
+  / f:ID LEFTPAR !COMMA p1:assign? pr:(COMMA assign)* RIGHTPAR {
+       var args = p1? [ p1] : []; 
+       args = args.concat(pr.map((_, t) => t));
+       return new BinOp({type: 'CALL', left: f, right: args});
+      }
   / ID
   / LEFTPAR c:comma RIGHTPAR {return c;}
 

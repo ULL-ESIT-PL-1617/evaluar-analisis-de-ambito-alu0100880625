@@ -9,11 +9,13 @@ class Node {
 class BinOp extends Node{
   translate() {
     console.log("visiting: "+util.inspect(this, {depth:1}))
-    var leftTranslate = this.left.translate();
-    var opTrans = this.type;
+    let leftTranslate = this.left.translate();
+    let opTrans = this.type;
     if (opTrans == ",") opTrans += '\n  ';
     else if (opTrans == "=") {
       leftTranslate = `sym[${leftTranslate}]`;
+    } else if (opTrans == "CALL") {
+      return `${this.left.translate()}()`;
     }
     return leftTranslate + opTrans + this.right.translate();
   }
