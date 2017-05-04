@@ -30,7 +30,7 @@ class BinOp extends Node{
 class Leaf extends Node{
   translate() {
     console.log("visiting: "+util.inspect(this, {depth:null}))
-    var trans = (this.type == 'ID')? `sym[${this.value}]`: this.value;
+    var trans = (this.type == 'ID')? `sym.${this.value}`: this.value;
     return trans;
   }
 };

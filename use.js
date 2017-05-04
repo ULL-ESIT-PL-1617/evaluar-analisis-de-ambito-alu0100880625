@@ -1,4 +1,6 @@
 #!/usr/bin/env node
-var t = require('./translation-of-input1.js');
+var util = require('util');
 
-console.log(t());
+var t = require('./translation.js');
+
+console.log(util.inspect(t(), {depth: null}));
