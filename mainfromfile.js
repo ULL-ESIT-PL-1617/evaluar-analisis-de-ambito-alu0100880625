@@ -5,7 +5,10 @@ var PEG = require("./grammar.js");
 var fileName = process.argv[2] || 'input1';
 
 var genCode = function(tree) {
-   var prefix = 'module.exports = () => {\n';
+   var prefix = `
+module.exports = () => {
+  var sym = {};
+  `;
    var suffix = '\n}';
    /* traverse the tree producing translation */
    return prefix+tree.translate()+suffix;

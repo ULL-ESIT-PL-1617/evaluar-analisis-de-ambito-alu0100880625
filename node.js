@@ -5,10 +5,17 @@ class Node {
     Object.assign(this,node);
   }
 };
+
 class BinOp extends Node{
   translate() {
     console.log("visiting: "+util.inspect(this, {depth:1}))
-    return this.left.translate() + this.type + this.right.translate();
+    var leftTranslate = this.left.translate();
+    var opTrans = this.type;
+    if (opTrans == ",") opTrans += '\n  ';
+    else if (opTrans == "=") {
+      leftTranslate = `sym[${leftTranslate}]`;
+    }
+    return leftTranslate + opTrans + this.right.translate();
   }
 };
 
