@@ -12,9 +12,6 @@ class BinOp extends Node{
     var leftTranslate = this.left.translate();
     var opTrans = this.type;
     if (opTrans == ",") opTrans += '\n  ';
-    else if (opTrans == "=") {
-      leftTranslate = `sym[${leftTranslate}]`;
-    }
     return leftTranslate + opTrans + this.right.translate();
   }
 };
@@ -22,7 +19,8 @@ class BinOp extends Node{
 class Leaf extends Node{
   translate() {
     console.log("visiting: "+util.inspect(this, {depth:null}))
-    return this.value;
+    var trans = (this.type == 'ID')? `sym[${this.value}]`: this.value;
+    return trans;
   }
 };
 
