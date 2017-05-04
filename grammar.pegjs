@@ -1,5 +1,17 @@
 {
   var { Node, BinOp, Leaf } = require('./node.js');
+
+  var buildTree = function(left,rest) {
+     if(rest.length == 0){
+       return left;
+     } else {
+       let arr = [];
+       rest.forEach(function(item){
+         arr.push(new BinOp({type:item[0], left: left, right: item[1]}));
+       });
+       return arr;
+     }
+  }
 }
 
 start
@@ -14,31 +26,11 @@ assign
   / additive
 
 additive
-  = left:multiplicative rest:(ADDOP multiplicative)* {
-                                     if(rest.length == 0){
-                                       return left;
-                                     } else {
-                                       let arr = [];
-                                       rest.forEach(function(item){
-                                         arr.push(new BinOp({type:item[0], left: left, right: item[1]}));
-                                       });
-                                       return arr;
-                                     }
-                                  }
+  = left:multiplicative rest:(ADDOP multiplicative)* { return buildTree(left, rest); }
   / multiplicative
 
 multiplicative
-  = left:primary rest:(MULOP primary)* {
-                            if(rest.length == 0){
-                              return left;
-                            } else {
-                              let arr = [];
-                               rest.forEach(function(item){
-                                 arr.push(new BinOp({type:item[0], left: left, right: item[1]}));
-                               });
-                              return arr;
-                            }
-                           }
+  = left:primary rest:(MULOP primary)* { return buildTree(left, rest); }
   / primary
 
 primary
