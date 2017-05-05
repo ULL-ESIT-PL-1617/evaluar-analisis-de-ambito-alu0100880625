@@ -24,11 +24,9 @@ assign
 
 additive
   = left:multiplicative rest:(ADDOP multiplicative)* { return buildTree(left, rest); }
-  / multiplicative
 
 multiplicative
   = left:primary rest:(MULOP primary)* { return buildTree(left, rest); }
-  / primary
 
 primary
   = integer
