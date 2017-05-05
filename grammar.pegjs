@@ -17,7 +17,7 @@ comma
   / assign
 
 assign
-  = id:ID ASSIGN a:additive { return new BinOp({type : '=', left: id, right:a}); }
+  = id:ID ASSIGN a:assign { return new BinOp({type : '=', left: id, right:a}); }
   / additive
 
 additive
