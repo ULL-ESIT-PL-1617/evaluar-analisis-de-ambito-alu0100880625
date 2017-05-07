@@ -1,7 +1,7 @@
 {
   var util = require("util");
 
-  var { Node, BinOp, Leaf } = require('./node.js');
+  var { Node, Call, FunctionDef, BinOp, Leaf } = require('./node.js');
 
   var buildTree = function(left,rest) {
      if (rest.length == 0) return left;  
@@ -29,11 +29,12 @@ multiplicative
 
 primary
   = integer
-  / f:ID LEFTPAR args:args RIGHTPAR { return new BinOp({type: 'CALL', left: f, right: args});
-      }
+  / f:ID LEFTPAR args:args RIGHTPAR { 
+       return new Call({type: 'CALL', left: f, right: args});
+     }
   / ID
   / LEFTPAR params:params ARROW a:assign {
-       return new BinOp({type: 'FUNCTION', left: params, right: a});
+       return new FunctionDef({type: 'FUNCTION', left: params, right: a});
      }
   / LEFTPAR c:comma RIGHTPAR {return c;}
 

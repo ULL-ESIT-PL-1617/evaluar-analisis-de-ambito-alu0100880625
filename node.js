@@ -6,27 +6,35 @@ class Node {
   }
 };
 
+class Call extends Node {
+  translate() {
+    let argstrans = this.right.translate(',');
+    //console.log('--------> "'+argstrans+'"');
+    argstrans += (argstrans !== '')? ", sym" : "sym";
+    return `${this.left.translate()}(${argstrans})`;
+  };
+}
+
+class FunctionDef extends Node {
+    translate() {
+      //console.log("*****************Function "+util.inspect(this.left));
+      let params = this.left.map(({type:_, value:x}) => x);
+      let paramsTrans = params.concat(["oldSym"]).join(",");
+      let trans = "function("+paramsTrans+") {\n";
+      trans += "    let sym = {};\n";
+      let paramDecl = params.map((x) => x+":"+x).join(',');
+      trans += "    Object.assign(sym, oldSym, {" +paramDecl+"});\n";
+      trans += '    return '+this.right.translate()+"\n  }";
+      return trans;
+    }
+}
+
 class BinOp extends Node{
   translate() {
     //console.log("visiting: "+util.inspect(this, {depth:1}))
     var leftTranslate = this.left.translate();
     var opTrans = this.type;
     if (opTrans == ",") opTrans += '\n  ';
-    else if (opTrans == "CALL") {
-      let argstrans = this.right.translate(',');
-      //console.log('--------> "'+argstrans+'"');
-      argstrans += (argstrans !== '')? ", sym" : "sym";
-      return `${this.left.translate()}(${argstrans})`;
-    }
-    else if (opTrans == "FUNCTION") {
-      //console.log("*****************Function "+util.inspect(this.left));
-      let params = this.left.map(({type:_, value:x}) => x);
-      let trans = "function("+params.concat(["oldSym"]).join(",")+") {\n";
-      trans += "    let sym = {}; Object.assign(sym, oldSym, {" + params.map((x) => x+":"+x).join(',')+"});\n";
-
-      trans += '    return '+this.right.translate();
-      return trans+"\n  }";
-    }
     return leftTranslate + opTrans + this.right.translate();
   }
 };
@@ -43,5 +51,11 @@ Array.prototype.translate = function(j) {
   return this.map((t) => t.translate()).join(j || '');
 };
 
-module.exports = {Node: Node, BinOp: BinOp, Leaf: Leaf};
+module.exports = {
+  Node: Node, 
+  Call: Call, 
+  FunctionDef: FunctionDef, 
+  BinOp: BinOp, 
+  Leaf: Leaf
+};
 
