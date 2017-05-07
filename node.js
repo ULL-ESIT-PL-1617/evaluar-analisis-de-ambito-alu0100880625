@@ -8,19 +8,21 @@ class Node {
 
 class BinOp extends Node{
   translate() {
-    console.log("visiting: "+util.inspect(this, {depth:1}))
+    //console.log("visiting: "+util.inspect(this, {depth:1}))
     var leftTranslate = this.left.translate();
     var opTrans = this.type;
     if (opTrans == ",") opTrans += '\n  ';
     else if (opTrans == "CALL") {
       let argstrans = this.right.translate(',');
+      //console.log('--------> "'+argstrans+'"');
+      argstrans += (argstrans !== '')? ", sym" : "sym";
       return `${this.left.translate()}(${argstrans})`;
     }
     else if (opTrans == "FUNCTION") {
-      console.log("*****************Function "+util.inspect(this.left));
+      //console.log("*****************Function "+util.inspect(this.left));
       let params = this.left.map(({type:_, value:x}) => x);
-      let trans = "function("+params.join(",")+") {\n";
-      trans += "    var sym = {" + params.map((x) => x+":"+x).join(',')+"};\n";
+      let trans = "function("+params.concat(["oldSym"]).join(",")+") {\n";
+      trans += "    let sym = {}; Object.assign(sym, oldSym, {" + params.map((x) => x+":"+x).join(',')+"});\n";
 
       trans += '    return '+this.right.translate();
       return trans+"\n  }";
@@ -31,7 +33,7 @@ class BinOp extends Node{
 
 class Leaf extends Node{
   translate() {
-    console.log("visiting: "+util.inspect(this, {depth:null}))
+    //console.log("visiting: "+util.inspect(this, {depth:null}))
     var trans = (this.type == 'ID')? `sym.${this.value}`: this.value;
     return trans;
   }

@@ -17,7 +17,6 @@ start
 comma
   = a:assign COMMA c:comma { return new BinOp({type:',', left:a, right: c}); }
   / assign
-
 assign
   = id:ID ASSIGN a:assign { return new BinOp({type : '=', left: id, right:a}); }
   / additive
@@ -30,25 +29,34 @@ multiplicative
 
 primary
   = integer
-  / f:ID LEFTPAR !COMMA p1:assign? pr:(COMMA assign)* RIGHTPAR {
-       var args = p1? [ p1] : []; 
-       args = args.concat(pr.map(([_, t]) => t));
-       console.log("*****!!! args = ",util.inspect(args));
-       return new BinOp({type: 'CALL', left: f, right: args});
+  / f:ID LEFTPAR args:args RIGHTPAR { return new BinOp({type: 'CALL', left: f, right: args});
       }
   / ID
-  / LEFTPAR p:(ID COMMA)* pl:ID? RIGHTPAR ARROW a:assign {
-       var params = p.map(([id, _ ]) => id);
-       if (pl) params.push(pl);
-       //console.log("************* params = ",util.inspect(params));
+  / LEFTPAR params:params ARROW a:assign {
        return new BinOp({type: 'FUNCTION', left: params, right: a});
      }
   / LEFTPAR c:comma RIGHTPAR {return c;}
 
+args = !COMMA p1:assign? pr:(COMMA assign)* {
+             var args = p1? [ p1] : []; 
+             args = args.concat(pr.map(([_, t]) => t));
+             //console.log("*****!!! args = ",util.inspect(args));
+             return args;
+          }
+
+params = p:(ID COMMA)* pl:ID? RIGHTPAR {
+             var params = p.map(([id, _ ]) => id);
+             if (pl) params.push(pl);
+             //console.log("************* params = ",util.inspect(params));
+             return params;
+          }
+
 integer "integer"
   = NUMBER
 
-_ = $[ \t\n\r]*
+_ = [ \t\n\r]* ("#" [^\n\r\u2028\u2029]*)* 
+
+  
 
 ADDOP = PLUS / MINUS
 MULOP = MULT / DIV

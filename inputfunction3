@@ -1,2 +1,4 @@
 a = 4,
-z = f(,)
+# Función sin argumentos
+f = () => a,
+z = f()
