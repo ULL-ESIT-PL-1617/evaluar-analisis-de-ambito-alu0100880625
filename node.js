@@ -32,10 +32,13 @@ class FunctionDef extends Node {
 class BinOp extends Node{
   translate() {
     //console.log("visiting: "+util.inspect(this, {depth:1}))
-    var leftTranslate = this.left.translate();
-    var opTrans = this.type;
-    if (opTrans == ",") opTrans += '\n  ';
-    return leftTranslate + opTrans + this.right.translate();
+    return this.left.translate() + this.type + this.right.translate();
+  }
+};
+
+class Comma extends Node{
+  translate() {
+    return this.left.translate() + ",\n  " + this.right.translate();
   }
 };
 
@@ -56,6 +59,7 @@ module.exports = {
   Call: Call, 
   FunctionDef: FunctionDef, 
   BinOp: BinOp, 
+  Comma: Comma,
   Leaf: Leaf
 };
 

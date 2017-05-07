@@ -1,7 +1,7 @@
 {
   var util = require("util");
 
-  var { Node, Call, FunctionDef, BinOp, Leaf } = require('./node.js');
+  var { Node, Call, FunctionDef, BinOp, Comma, Leaf } = require('./node.js');
 
   var buildTree = function(left,rest) {
      if (rest.length == 0) return left;  
@@ -15,7 +15,7 @@ start
   = c:comma { return c; }
 
 comma
-  = a:assign COMMA c:comma { return new BinOp({type:',', left:a, right: c}); }
+  = a:assign COMMA c:comma { return new Comma({type:',', left:a, right: c}); }
   / assign
 assign
   = id:ID ASSIGN a:assign { return new BinOp({type : '=', left: id, right:a}); }
