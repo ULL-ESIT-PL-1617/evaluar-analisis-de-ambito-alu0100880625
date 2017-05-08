@@ -3,8 +3,8 @@ var { Node, Call, FunctionDef, BinOp, Comma, Leaf } = require('../node.js');
 var PEG = require("../grammar.js");
 var genCode = require("../gen-code.js");
 
-describe('translation', function() {
-  it('translates a = 4', function() { // change this test!
+describe('parser', function() {
+  it('builds the tree for a = 4', function() { 
     var r = PEG.parse('a = 4');
     let expected = new BinOp({
                       type: '=',
