@@ -41,6 +41,7 @@ primary
        return new FunctionDef({type: 'FUNCTION', left: params, right: a});
      }
   / LEFTPAR c:comma RIGHTPAR {return c;}
+  / QUOTE NOQUOTE QUOTE { return new Leaf({ type: 'STRING', value: text()}) }
 
 args = !COMMA p1:assign? pr:(COMMA assign)* {
              var args = p1? [ p1] : []; 
@@ -62,9 +63,10 @@ integer "integer"
 _ = ([ \t\n\r]+ / ("#" [^\n\r\u2028\u2029]*)+)*
 
   
-
 ADDOP = PLUS / MINUS
 MULOP = MULT / DIV
+QUOTE = _ ["] _
+NOQUOTE = $[^"]+
 COMMA = _","_  { return ','; }
 PLUS = _"+"_   { return '+'; }
 MINUS = _"-"_  { return '-'; }

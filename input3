@@ -1,2 +1,3 @@
 a = 4-2-1-1, # Checking > 2 operators in a row
-b = a*2-a-a
+b = a*2-a-a,
+print("a = ",a," b = ",b)

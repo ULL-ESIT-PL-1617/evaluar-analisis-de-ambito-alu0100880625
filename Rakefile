@@ -41,6 +41,16 @@ task :runfd => :compile do
   sh "node mainfromfile.js inputfunctiondef"
 end
 
+desc "Run mainfromfile.js inputfunctiondef2"
+task :runfd2 => :compile do
+  sh "node mainfromfile.js inputfunctiondef2"
+end
+
+desc "Run mainfromfile.js inputfunfun"
+task :runfun => :compile do
+  sh "node mainfromfile.js inputfunfun"
+end
+
 desc "Run mainfromfile.js inputfunction2"
 task :runf2 => :compile do
   sh "node mainfromfile.js inputfunction2"

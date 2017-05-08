@@ -1,8 +1,8 @@
-a = 4,
+a = PI,
 b = 5+a,
 3*4+2,
-c = 2*a
-
+c = sqrt(2*a),
+print("a = ",a,"b = ",b,"c = ",c)
 #comment
 
 # comment
