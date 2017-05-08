@@ -21,6 +21,10 @@ task :run2 => :compile do
   sh "node mainfromfile.js input2"
 end
 
+desc "Run mainfromfile.js input3"
+task :run3 => :compile do
+  sh "node mainfromfile.js input3"
+end
 
 desc "rm grammar.js"
 task :clean do

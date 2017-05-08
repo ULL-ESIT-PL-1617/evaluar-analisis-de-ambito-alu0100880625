@@ -1,19 +1,25 @@
 {
-  var { Node, BinOp, Leaf } = require('./node.js');
+  var util = require("util");
+
+  var { Node, BinOp, Comma, Leaf } = require('./node.js');
 
   var buildTree = function(left,rest) {
      if (rest.length == 0) return left;  
-     return rest.map(function([ operator, operand]){
-        return (new BinOp({type:operator, left: left, right: operand}));
-     });
-  }
+     return rest.reduce(
+        (tree, [ operator, operand]) => {
+          tree = new BinOp({type:operator, left: tree, right: operand});
+          return tree;
+        }, 
+        left
+     );
+  };
 }
 
 start
   = c:comma { return c; }
 
 comma
-  = a:assign COMMA c:comma { return new BinOp({type:',', left:a, right: c}); }
+  = a:assign COMMA c:comma { return new Comma({type:',', left:a, right: c}); }
   / assign
 
 assign
@@ -31,10 +37,26 @@ primary
   / ID
   / LEFTPAR c:comma RIGHTPAR {return c;}
 
+args = !COMMA p1:assign? pr:(COMMA assign)* {
+             var args = p1? [ p1] : []; 
+             args = args.concat(pr.map(([_, t]) => t));
+             //console.log("*****!!! args = ",util.inspect(args));
+             return args;
+          }
+
+params = p:(ID COMMA)* pl:ID? RIGHTPAR {
+             var params = p.map(([id, _ ]) => id);
+             if (pl) params.push(pl);
+             //console.log("************* params = ",util.inspect(params));
+             return params;
+          }
+
 integer "integer"
   = NUMBER
 
-_ = $[ \t\n\r]*
+_ = [ \t\n\r]* ("#" [^\n\r\u2028\u2029]*)* 
+
+  
 
 ADDOP = PLUS / MINUS
 MULOP = MULT / DIV

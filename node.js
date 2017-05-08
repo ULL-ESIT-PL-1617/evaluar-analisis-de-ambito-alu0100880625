@@ -9,10 +9,13 @@ class Node {
 class BinOp extends Node{
   translate() {
     console.log("visiting: "+util.inspect(this, {depth:1}))
-    var leftTranslate = this.left.translate();
-    var opTrans = this.type;
-    if (opTrans == ",") opTrans += '\n  ';
-    return leftTranslate + opTrans + this.right.translate();
+    return this.left.translate() + this.type + this.right.translate();
+  }
+};
+
+class Comma extends Node{
+  translate() {
+    return this.left.translate() + ",\n  " + this.right.translate();
   }
 };
 
@@ -24,9 +27,14 @@ class Leaf extends Node{
   }
 };
 
-Array.prototype.translate = function() {
-  return this.reduce((s,n) => s += n.translate(), '');
+Array.prototype.translate = function(j) {
+  return this.map((t) => t.translate()).join(j || '');
 };
 
-module.exports = {Node: Node, BinOp: BinOp, Leaf: Leaf};
+module.exports = {
+  Node: Node, 
+  BinOp: BinOp, 
+  Comma: Comma,
+  Leaf: Leaf
+};
 
