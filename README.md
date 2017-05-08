@@ -10,31 +10,35 @@ Este es el PEG de partida::
 start
   = comma
 
-comma 
-  = assign COMMA comma 
+comma
+  = assign COMMA comma
   / assign
 
 assign
-  = ID ASSIGN additive
+  = ID ASSIGN assign
   / additive
 
 additive
   = multiplicative (ADDOP multiplicative)*
-  / multiplicative
 
 multiplicative
   = primary (MULOP primary)*
-  / primary
 
 primary
   = integer
   / ID
   / LEFTPAR comma RIGHTPAR
 
+args = !COMMA assign? (COMMA assign)*
+
+params = (ID COMMA)* ID? RIGHTPAR
+
 integer "integer"
   = NUMBER
 
-_ = $[ \t\n\r]*
+_ = [ \t\n\r]* ("#" [^\n\r\u2028\u2029]*)*
+
+
 
 ADDOP = PLUS / MINUS
 MULOP = MULT / DIV

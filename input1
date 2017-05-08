@@ -2,3 +2,8 @@ a = 4,
 b = 5+a,
 3*4+2,
 c = 2*a
+
+#comment
+
+# comment
+
