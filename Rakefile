@@ -6,6 +6,11 @@ task :compile do
   sh "#{PEGJS} grammar.pegjs"
 end
 
+desc "Run tests"
+task :test do
+  sh "NODE_PATH=`pwd` ./node_modules/.bin/mocha --reporter spec"
+end
+
 desc "Run main.js"
 task :exe => :compile do
   sh "node main.js"
