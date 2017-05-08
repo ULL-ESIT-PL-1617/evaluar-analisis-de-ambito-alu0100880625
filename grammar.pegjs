@@ -1,7 +1,7 @@
 {
   var util = require("util");
 
-  var { Node, Call, FunctionDef, BinOp, Comma, Leaf } = require('./node.js');
+  var { Node, Call, FunctionDef, BinOp, Comma, Leaf } = require('node');
 
   var buildTree = function(left,rest) {
      if (rest.length == 0) return left;  

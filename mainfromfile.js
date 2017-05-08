@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 var util = require('util');
 var fs = require('fs');
-var PEG = require("./grammar.js");
-var genCode = require("./gen-code.js");
+var PEG = require("grammar");
+var genCode = require("gen-code");
 
 var fileName = process.argv[2] || 'input1';
 

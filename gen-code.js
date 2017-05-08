@@ -4,7 +4,7 @@ let prefixTemplate = function() {
   return `
 module.exports = () => {
   let e;
-  let sym = require('./maths.js');
+  let sym = require('maths');
   try {
   `; 
 }; // end prefix

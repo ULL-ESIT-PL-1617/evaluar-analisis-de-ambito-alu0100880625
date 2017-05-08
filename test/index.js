@@ -36,7 +36,7 @@ describe('code generation', function() {
   it('translates  a = 4, b = a + 1', function() { 
     var r = compileEval('a = 4, b = a+1');
     let expected = {a:4, b:5};
-    r.should.deep.equal(expected); 
+    (({a, b}) => ({a, b}))(r).should.deep.equal(expected); 
   });
 
   it('translates  a = 4, f = (x) => x*a,  # Comentario\\n z = f(2)', function() { 

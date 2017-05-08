@@ -1,0 +1,9 @@
+a = PI,
+b = 5+a,
+3*4+2,
+c = sqrt(2*a),
+print("a = ",a,"b = ",b,"c = ",c)
+#comment
+
+# comment
+
