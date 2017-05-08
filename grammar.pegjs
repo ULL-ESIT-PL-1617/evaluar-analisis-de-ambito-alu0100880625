@@ -54,7 +54,7 @@ params = p:(ID COMMA)* pl:ID? RIGHTPAR {
 integer "integer"
   = NUMBER
 
-_ = [ \t\n\r]* ("#" [^\n\r\u2028\u2029]*)* 
+_ = ([ \t\n\r]+ / ("#" [^\n\r\u2028\u2029]*)+)*
 
   
 

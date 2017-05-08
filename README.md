@@ -1,11 +1,6 @@
 ### Aceptar Tarea
 
-* [Aceptar asignación de la tarea]()
-
-### Forma de trabajo
-
-* Use su portátil o su cuenta en c9 para llevar a cabo los objetivos planteados.
-* Esta práctica se divide en objetivos o hitos:  indique al profesor  cuando ha terminado y suba los enlaces a los repos y despliegues.
+* [Solución a la Práctica: Evaluar PEG Translate](https://github.com/ULL-ESIT-PL-1617/evaluar-pegjs-translate)
 
 ### Descripción
 
@@ -15,31 +10,35 @@ Este es el PEG de partida::
 start
   = comma
 
-comma 
-  = assign COMMA comma 
+comma
+  = assign COMMA comma
   / assign
 
 assign
-  = ID ASSIGN additive
+  = ID ASSIGN assign
   / additive
 
 additive
   = multiplicative (ADDOP multiplicative)*
-  / multiplicative
 
 multiplicative
   = primary (MULOP primary)*
-  / primary
 
 primary
   = integer
   / ID
   / LEFTPAR comma RIGHTPAR
 
+args = !COMMA assign? (COMMA assign)*
+
+params = (ID COMMA)* ID? RIGHTPAR
+
 integer "integer"
   = NUMBER
 
-_ = $[ \t\n\r]*
+_ = [ \t\n\r]* ("#" [^\n\r\u2028\u2029]*)*
+
+
 
 ADDOP = PLUS / MINUS
 MULOP = MULT / DIV
