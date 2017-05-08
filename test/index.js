@@ -16,11 +16,33 @@ describe('parser', function() {
 });
 
 describe('code generation', function() {
-  it('translates  a = 4', function() { 
-    var r = PEG.parse('a = 4');
+  let compile = function(input) {
+    var r = PEG.parse(input);
     var t = genCode(r);
+    return t;
+  };
+  let compileEval = function(input) {
+    var t = compile(input);
+    var x = eval(t);
+    return x();
+  };
+
+  it('translates  a = 4', function() { 
+    var r = compile('a = 4');
     let expected =  /sym.a\s*=\s*4/;
-    t.should.match(expected); 
+    r.should.match(expected); 
+  });
+
+  it('translates  a = 4, b = a + 1', function() { 
+    var r = compileEval('a = 4, b = a+1');
+    let expected = {a:4, b:5};
+    r.should.deep.equal(expected); 
+  });
+
+  it('translates  a = 4, f = (x) => x*a,  # Comentario\\n z = f(2)', function() { 
+    var r = compileEval('a = 4, f = (x) => x*a, # Comentario\nz = f(2)');
+    let expected = {a:4, z:8};
+    (({a, z}) => ({a, z}))(r).should.deep.equal(expected); 
   });
 });
 

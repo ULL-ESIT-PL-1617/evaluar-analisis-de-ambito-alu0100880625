@@ -3,6 +3,7 @@
   "version": "0.1.6",
   "description": "A PEGjs exercise for ULL-ESIT-PL-16-17",
   "scripts": {
+    "start": "./mainfromfile.js input1",
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "repository": {

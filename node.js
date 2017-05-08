@@ -31,7 +31,7 @@ class FunctionDef extends Node {
 
 class BinOp extends Node{
   translate() {
-    console.log("visiting: "+util.inspect(this, {depth:1}))
+    //console.log("visiting: "+util.inspect(this, {depth:1}))
     return this.left.translate() + this.type + this.right.translate();
   }
 };
