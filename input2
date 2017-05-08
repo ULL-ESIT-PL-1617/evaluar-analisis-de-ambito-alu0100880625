@@ -1,2 +1,0 @@
-# una simple expresión
-print("result = ",3*4+2)

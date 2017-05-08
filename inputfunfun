@@ -1,5 +1,0 @@
-# Very much fun = fun fun
-f = (x,y) => y(x)+1,
-g = (z) => 2*z,
-w = f(3, g), 
-print(w) # w: 7

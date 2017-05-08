@@ -1,6 +1,0 @@
-a = 4,
-# Función sin argumentos
-f = () => a,
-z = f(),
-print("a = ",a), # 4
-print("z = ",z) # 4
