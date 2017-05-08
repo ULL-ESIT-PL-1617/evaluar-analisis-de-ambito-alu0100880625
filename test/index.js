@@ -1,17 +1,17 @@
 var should = require('chai').should();
+var { Node, Call, FunctionDef, BinOp, Comma, Leaf } = require('../node.js');
 var PEG = require("../grammar.js");
-
-function requireFromString(src, filename) {
-  var Module = module.constructor;
-  var m = new Module();
-  m._compile(src, filename);
-  return m.exports;
-}
+var genCode = require("../gen-code.js");
 
 describe('translation', function() {
-  it('translates a = 4, b = 5+a, c = 2*a', function() { // change this test!
-    var r = PEG.parse('a = 4, b = 5+a, c = 2*a');
-    r.should.match(/a\s*=\s*4,\s*b\s*=\s*5[+]a,\s*c\s*=\s*2[*]a/); 
+  it('translates a = 4', function() { // change this test!
+    var r = PEG.parse('a = 4');
+    let expected = new BinOp({
+                      type: '=',
+                      left: new Leaf({ type: 'ID', value: 'a' }),
+                      right: new Leaf({ type: 'NUM', value: '4' }) 
+                   });
+    r.should.deep.equal(expected); 
   });
 });
 
