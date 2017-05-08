@@ -5,10 +5,14 @@
 
   var buildTree = function(left,rest) {
      if (rest.length == 0) return left;  
-     return rest.map(function([ operator, operand]){
-        return (new BinOp({type:operator, left: left, right: operand}));
-     });
-  }
+     return rest.reduce(
+        (tree, [ operator, operand]) => {
+          tree = new BinOp({type:operator, left: tree, right: operand});
+          return tree;
+        }, 
+        left
+     );
+  };
 }
 
 start

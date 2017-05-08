@@ -42,7 +42,7 @@ fs.readFile(fileName, 'utf8', function (err,input) {
 
   /* Parsing: building AST */
   var r = PEG.parse(input);
-  //console.log(util.inspect(r, {depth: null}));
+  console.log(util.inspect(r, {depth: null}));
 
 
   console.log("********* Code Generation ************");
