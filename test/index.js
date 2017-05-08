@@ -15,3 +15,12 @@ describe('parser', function() {
   });
 });
 
+describe('code generation', function() {
+  it('translates  a = 4', function() { 
+    var r = PEG.parse('a = 4');
+    var t = genCode(r);
+    let expected =  /sym.a\s*=\s*4/;
+    t.should.match(expected); 
+  });
+});
+
