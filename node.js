@@ -8,7 +8,7 @@ class Node {
 
 class BinOp extends Node{
   translate() {
-    console.log("visiting: "+util.inspect(this, {depth:1}))
+    //console.log("visiting: "+util.inspect(this, {depth:1}))
     return this.left.translate() + this.type + this.right.translate();
   }
 };
@@ -21,7 +21,7 @@ class Comma extends Node{
 
 class Leaf extends Node{
   translate() {
-    console.log("visiting: "+util.inspect(this, {depth:null}))
+    //console.log("visiting: "+util.inspect(this, {depth:null}))
     var trans = (this.type == 'ID')? `sym.${this.value}`: this.value;
     return trans;
   }
