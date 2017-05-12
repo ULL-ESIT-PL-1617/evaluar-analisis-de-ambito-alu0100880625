@@ -8,6 +8,7 @@ console.log(`Processing <${input}>`);
 var r = PEG.parse(input);
 
 console.log(util.inspect(r, {depth: null}));
-
+/*
 let js  = genCode(r);
 console.log(js);
+*/

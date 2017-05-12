@@ -4,6 +4,8 @@ class Node {
   constructor(node) {
     Object.assign(this,node);
   }
+
+  //visit()
 };
 
 class Call extends Node {
@@ -50,16 +52,25 @@ class Leaf extends Node{
   }
 };
 
+class Block extends Node {
+  translate() {
+    let trans = "(\n";
+
+    trans += ")\n";
+    return trans;
+  }
+};
+
 Array.prototype.translate = function(j) {
   return this.map((t) => t.translate()).join(j || '');
 };
 
 module.exports = {
-  Node: Node, 
-  Call: Call, 
-  FunctionDef: FunctionDef, 
-  BinOp: BinOp, 
+  Node: Node,
+  Call: Call,
+  FunctionDef: FunctionDef,
+  BinOp: BinOp,
   Comma: Comma,
-  Leaf: Leaf
+  Leaf: Leaf,
+  Block: Block
 };
-
